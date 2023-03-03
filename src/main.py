@@ -35,6 +35,6 @@ async def process_input(location: str) -> None:
 
 
 if __name__ == "__main__":
-    # запуск обработки входного файла
+    # запуск обработки входного файлаЙЙ
     # pylint: disable=E1120
     process_input(_anyio_backend="asyncio")
