@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pwd
+
 #  создание файла для логов, если его не существует
 touch /logs/crontab.log
 

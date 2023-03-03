@@ -59,6 +59,60 @@ class LanguagesInfoDTO(HashableBaseModel):
     name: str
     native_name: str
 
+class NewsArticlesDTO(HashableBaseModel):
+    """
+    Модель данных о статье
+
+    .. code-block::
+
+        NewsArticlesDTO(
+            id="google-news",
+            name="Google News,
+            author="Fox Business",
+            title="Nordstrom leaving Canada, cutting 2,500 jobs - Fox Business",
+            description="Some text",
+            url="link",
+            publishedAt="2023-03-03T06:03:32Z",
+            content="Some content"
+        )
+    """
+
+    id: str
+    name: str
+    author: str
+    title: str
+    description: str | None
+    url: str
+    publishedAt: str
+    content: str | None
+
+class NewsInfoDTO(BaseModel):
+    """
+    Модель данных о новостях
+
+    .. code-block::
+
+        NewsDTO(
+            status="ok",
+            totalResults:70,
+            articles[
+                NewsSourceInfoDTO(
+                    id="google-news",
+                    name="Google News,
+                    author="Fox Business",
+                    title="Nordstrom leaving Canada, cutting 2,500 jobs - Fox Business",
+                    description="Some text",
+                    url="link",
+                    publishedAt="2023-03-03T06:03:32Z",
+                    content="Some content"
+                )
+            ]
+        )
+    """
+
+    status: str
+    totalResults: int
+    articles: set[NewsArticlesDTO]
 
 class CountryDTO(BaseModel):
     """
@@ -68,6 +122,8 @@ class CountryDTO(BaseModel):
 
         CountryDTO(
             capital="Mariehamn",
+            latitude=60.116667,
+            longitude=19.9,
             alpha2code="AX",
             alt_spellings=[
               "AX",
@@ -88,6 +144,7 @@ class CountryDTO(BaseModel):
                 )
             },
             name="\u00c5land Islands",
+            area=1580.0,
             population=28875,
             subregion="Northern Europe",
             timezones=[
@@ -97,6 +154,8 @@ class CountryDTO(BaseModel):
     """
 
     capital: str
+    latitude: float
+    longitude: float
     alpha2code: str
     alt_spellings: list[str]
     currencies: set[CurrencyInfoDTO]
@@ -104,6 +163,7 @@ class CountryDTO(BaseModel):
     languages: set[LanguagesInfoDTO]
     name: str
     population: int
+    area: float | None
     subregion: str
     timezones: list[str]
 
@@ -140,6 +200,7 @@ class WeatherInfoDTO(BaseModel):
             humidity=54,
             wind_speed=4.63,
             description="scattered clouds",
+            visibility=10000
         )
     """
 
@@ -148,6 +209,7 @@ class WeatherInfoDTO(BaseModel):
     humidity: int
     wind_speed: float
     description: str
+    visibility: float
 
 
 class LocationInfoDTO(BaseModel):
@@ -201,3 +263,4 @@ class LocationInfoDTO(BaseModel):
     location: CountryDTO
     weather: WeatherInfoDTO
     currency_rates: dict[str, float]
+    news: NewsInfoDTO
